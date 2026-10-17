@@ -59,10 +59,11 @@ def analyze_target(df):
         normalize=True
     ).sort_index() * 100
 
-    print(counts)
-    print("\nPercentages:")
-    print(percentages.round(2))
-
+    summary = pd.DataFrame({
+        "Count": counts,
+        "Percentage": percentages.round(2)
+    })
+    print(summary)
 
 # 5. Main Function
 def main():
