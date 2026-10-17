@@ -103,15 +103,33 @@ def plot_survival_by_gender(df):
     plt.show()
 
 
+# 7. Plot Age Distribution
+def plot_age_distribution(df):
+    """Show the distribution of passenger ages."""
+
+    plt.figure(figsize=(8, 5))
+
+    sns.histplot(data=df, x="Age", bins=20, kde=True)
+
+    plt.title("Age Distribution")
+    plt.xlabel("Age")
+    plt.ylabel("Frequency")
+
+    plt.tight_layout()
+    plt.show()
+
+
+
 
 # 5. Main Function
 def main():
     df = load_data()
 
-   # inspect_data(df)
-   # analyze_target(df)
-   # plot_survival_distribution(df)
+    inspect_data(df)
+    analyze_target(df)
+    plot_survival_distribution(df)
     plot_survival_by_gender(df)
+    plot_age_distribution(df)
 
 
 if __name__ == "__main__":
