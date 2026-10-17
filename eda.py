@@ -65,12 +65,30 @@ def analyze_target(df):
     })
     print(summary)
 
+
+# 5. Plot Survival Distribution
+def plot_survival_distribution(df):
+    """Plot the number of passengers who survived and did not survive."""
+
+    plt.figure(figsize=(7, 5))
+
+    sns.countplot(data=df, x="Survived")
+
+    plt.title("Survival Distribution")
+    plt.xlabel("Survived (0 = No, 1 = Yes)")
+    plt.ylabel("Number of Passengers")
+
+    plt.tight_layout()
+    plt.show()
+
+
 # 5. Main Function
 def main():
     df = load_data()
 
     inspect_data(df)
     analyze_target(df)
+    plot_survival_distribution(df)
 
 
 if __name__ == "__main__":
