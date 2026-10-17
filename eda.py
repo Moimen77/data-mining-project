@@ -1,42 +1,76 @@
 
+# ==========================================
+# Titanic Data Mining Project
+# Phase 1: Exploratory Data Analysis (EDA)
+# ==========================================
+
+# 1. Imports & Configuration
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pathlib import Path
 
-# 1. Load the dataset
-data_path = Path(__file__).parent / "data" / "train.csv"
-df = pd.read_csv(data_path)
 
-# 2. Display the first 5 rows
-print("\n--- First 5 Rows ---")
-print(df.head())
+sns.set_theme(style="whitegrid")
+plt.rcParams["figure.figsize"] = (8, 5)
 
-# 3. Dataset dimensions
-print("\n--- Dataset Shape ---")
-print(f"Rows: {df.shape[0]}")
-print(f"Columns: {df.shape[1]}")
 
-# 4. Column names and data types
-print("\n--- Dataset Information ---")
-df.info()
+# 2. Load Dataset
+def load_data():
+    """Load the original Titanic dataset."""
+    data_path = Path(__file__).parent / "data" / "train.csv"
+    df = pd.read_csv(data_path)
+    return df
 
-# 5. Statistical summary
-print("\n--- Statistical Summary ---")
-print(df.describe(include="all").T)
 
-# 6. Missing values
-print("\n--- Missing Values ---")
-print(df.isnull().sum())
+# 3. Basic Inspection
+def inspect_data(df):
+    """Display basic information about the dataset."""
 
-# 7. Duplicate rows
-print("\n--- Duplicate Rows ---")
-print(df.duplicated().sum())
+    print("\n========== DATASET OVERVIEW ==========")
+    print(f"Number of rows: {df.shape[0]}")
+    print(f"Number of columns: {df.shape[1]}")
 
-# 8. Target distribution
-print("\n--- Survival Distribution ---")
-print(df["Survived"].value_counts())
-print(df["Survived"].value_counts(normalize=True) * 100)
+    print("\n========== FIRST 5 ROWS ==========")
+    print(df.head())
 
-print("\nEDA inspection completed.")
+    print("\n========== DATA TYPES ==========")
+    df.info()
+
+    print("\n========== STATISTICAL SUMMARY ==========")
+    print(df.describe(include="all").T)
+
+    print("\n========== MISSING VALUES ==========")
+    print(df.isnull().sum())
+
+    print("\n========== DUPLICATE ROWS ==========")
+    print(df.duplicated().sum())
+
+
+# 4. Target Variable Analysis
+def analyze_target(df):
+    """Analyze the target variable: Survived."""
+
+    print("\n========== SURVIVAL DISTRIBUTION ==========")
+    counts = df["Survived"].value_counts().sort_index()
+    percentages = df["Survived"].value_counts(
+        normalize=True
+    ).sort_index() * 100
+
+    print(counts)
+    print("\nPercentages:")
+    print(percentages.round(2))
+
+
+# 5. Main Function
+def main():
+    df = load_data()
+
+    inspect_data(df)
+    analyze_target(df)
+
+
+if __name__ == "__main__":
+    main()
