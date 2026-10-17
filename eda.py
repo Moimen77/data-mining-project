@@ -82,13 +82,36 @@ def plot_survival_distribution(df):
     plt.show()
 
 
+# 6. Plot Survival by Gender
+def plot_survival_by_gender(df):
+    """Compare survival counts by gender."""
+
+    plt.figure(figsize=(7, 5))
+
+    sns.countplot(data=df, x="Sex", hue="Survived")
+
+    plt.title("Survival by Gender")
+    plt.xlabel("Gender")
+    plt.ylabel("Number of Passengers")
+
+    plt.legend(
+        title="Survived",
+        labels=["No", "Yes"]
+    )
+
+    plt.tight_layout()
+    plt.show()
+
+
+
 # 5. Main Function
 def main():
     df = load_data()
 
-    inspect_data(df)
-    analyze_target(df)
-    plot_survival_distribution(df)
+   # inspect_data(df)
+   # analyze_target(df)
+   # plot_survival_distribution(df)
+    plot_survival_by_gender(df)
 
 
 if __name__ == "__main__":
