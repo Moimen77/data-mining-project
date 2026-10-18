@@ -122,6 +122,8 @@ X_test_processed = pd.DataFrame(
 # ==========================================
 # 9. Save the processed datasets
 # ==========================================
+import joblib
+
 output_dir = BASE_DIR / "processed_data"
 output_dir.mkdir(exist_ok=True)
 
@@ -139,6 +141,9 @@ test_processed.to_csv(
     output_dir / "test_processed.csv", index=False
 )
 
+preprocessor_path = output_dir / "preprocessor.joblib"
+joblib.dump(preprocessor, preprocessor_path)
+
 print("\nPreprocessing completed successfully!")
 print("Processed training shape:", X_train_processed.shape)
 print("Processed testing shape:", X_test_processed.shape)
@@ -147,3 +152,4 @@ print("Missing values in testing:", X_test_processed.isnull().sum().sum())
 print("\nSaved files in:", output_dir)
 print("- train_processed.csv")
 print("- test_processed.csv")
+print(f"- preprocessor.joblib (fitted pipeline)")
